@@ -2,6 +2,10 @@
 
 Unity game, applemint
 
+## 게임소개
+
+FPS 디펜스 게임입니다. 총으로 끊임없이 몰려오는 악당들의 진입으로부터 보호하는 게임입니다.
+
 ## 기획의도
 
 ### 배운 것을 제대로 활용하기
@@ -47,6 +51,12 @@ Unity game, applemint
 
 ## 참고
 
+### 캐릭터
+
 ![OtakuAdventure](./resources/OtakuAdventure.PNG)
 
 '애플민트'에 등장하는 두 캐릭터는 'Otaku's Adventure'라는 게임의 두 캐릭터를 참고하여 만들어졌습니다.
+
+### 문서
+
+이 문서는 markdown으로 작성되었습니다. 원본을 보려면 [링크](https://github.com/maemenaver/applemint/)을 확인하십시오.
