@@ -37,17 +37,20 @@ public class NPCController : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Wall") && CompareTag("Enemy"))
+        if (!gameManager.isEndedGame)
         {
-            gameManager.life += -1;
-        }
+            if (other.gameObject.CompareTag("Wall") && CompareTag("Enemy"))
+            {
+                gameManager.life += -1;
+            }
 
-        if (other.gameObject.CompareTag("Wall") && CompareTag("Ally"))
-        {
-            Debug.Log("score : " + gameManager.score);
-            gameManager.score += 1;
-        }
+            if (other.gameObject.CompareTag("Wall") && CompareTag("Ally"))
+            {
+                Debug.Log("score : " + gameManager.score);
+                gameManager.score += 1;
+            }
 
-        target.Die();
+            target.Die();
+        }
     }
 }
