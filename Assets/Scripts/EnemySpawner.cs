@@ -13,8 +13,6 @@ public class EnemySpawner : MonoBehaviour
     public Transform[] spawnPoints;
 
     public float spawnTime = 5f;
-    float playTime = 0f;
-    int randomNumber;
 
     // Start is called before the first frame update
     void Start()
@@ -30,21 +28,15 @@ public class EnemySpawner : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        playTime += Time.deltaTime;
-        randomNumber = (int)(playTime * 1000000);
-        if (playTime >= spawnTime)
-        {
-            SpawnEnemy();
-            playTime = 0;
-        }
     }
 
     void SpawnEnemy()
     {
-        int spawnPointIndex = randomNumber % spawnPoints.Length;
-        int createIndex = randomNumber % 2;
+        // spawnPoints 중 한 곳에서 NPC가 생성되도록 합니다.
+        int spawnPointIndex = (int)Random.Range(0, spawnPoints.Length);
+        int createIndex = (int)Random.Range(0, 2);
 
+        // enemy와 ally 둘 중 하나가 생성되도록 합니다.
         switch (createIndex)
         {
             case 0:
@@ -54,5 +46,7 @@ public class EnemySpawner : MonoBehaviour
                 Instantiate(allyPrefab, spawnPoints[spawnPointIndex].position, Quaternion.Euler(new Vector3(90, 0, 90)));
                 break;
         }
+
+        Invoke("SpawnEnemy", Random.Range(spawnTime - 0.25f, spawnTime + 0.25f));
     }
 }

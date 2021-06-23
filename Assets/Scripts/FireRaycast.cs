@@ -28,18 +28,24 @@ public class FireRaycast : MonoBehaviour
 
     void Fire()
     {
+        // 파티클을 재생합니다.
         muzzleFlash.Play();
+
+        // 총소리를 재생합니다.
         gunShotSound.PlayOneShot(gunShotSound.clip);
 
         RaycastHit hit;
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, range))
         {
             TargetNPC target = hit.transform.GetComponent<TargetNPC>();
+
+            // NPC가 총에 맞으면 데미지를 입힙니다.
             if (target != null)
             {
                 target.TakeDamage(damage);
             }
 
+            // 총알에 힘을 줍니다.
             if (hit.rigidbody != null)
             {
                 hit.rigidbody.AddForce(camera.transform.forward * power);

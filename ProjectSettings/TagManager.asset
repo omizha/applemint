@@ -8,6 +8,9 @@ TagManager:
   - Wall
   - Enemy
   - Ally
+  - NoiseTransition
+  - NoiseSprite
+  - NoiseSound
   layers:
   - Default
   - TransparentFX

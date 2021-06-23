@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -16,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] number0x;
     public GameObject[] numberx0;
-    public int score = 0;
+    public int score;
 
     public GameObject textWin;
     public GameObject textLose;
@@ -28,6 +29,11 @@ public class GameManager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+        }
+
+        if (SceneManager.GetActiveScene().name == "Level2")
+        {
+            Invoke("StopNoiseTransition", 1f);
         }
     }
 
@@ -48,6 +54,29 @@ public class GameManager : MonoBehaviour
 
             case false:
                 playTime += Time.deltaTime;
+                break;
+        }
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Level1":
+                if (score == 50)
+                {
+                    SceneManager.LoadScene("Level2");
+                }
+                break;
+            case "Level2":
+                GameObject noiseSprite = GameObject.FindWithTag("NoiseSprite");
+                Color color = noiseSprite.GetComponent<Image>().color;
+                color.a = (score - 50) / 100f;
+                noiseSprite.GetComponent<Image>().color = color;
+
+                GameObject noiseSound = GameObject.FindGameObjectsWithTag("NoiseSound")[0];
+                noiseSound.GetComponent<AudioSource>().volume = (score - 50) * 3 / 100f > 1f ? 1f : (score - 50) * 3 / 100f;
+
+                noiseSound = GameObject.FindGameObjectsWithTag("NoiseSound")[1];
+                noiseSound.GetComponent<AudioSource>().volume = (score - 50) * 3 / 100f > 1f ? 1f : (score - 50) * 3 / 100f;
+
                 break;
         }
 
@@ -107,6 +136,11 @@ public class GameManager : MonoBehaviour
                 textLose.SetActive(true);
                 break;
         }
+    }
+
+    void StopNoiseTransition()
+    {
+        GameObject.FindWithTag("NoiseTransition").SetActive(false);
     }
 
     public void RestartGame(string sceneName)
